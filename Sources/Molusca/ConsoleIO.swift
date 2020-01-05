@@ -1,4 +1,5 @@
 import Foundation
+import XcodeTemplate
 import MoluscaHelper
 
 internal final class ConsoleIO {
@@ -125,7 +126,7 @@ internal final class ConsoleIO {
         case .standard, .warning:
             print(outputMessage)
         case .error:
-            fputs(outputMessage, stderr)
+            fputs(outputMessage + "\n", stderr)
         }
         
         if thenExit{
@@ -178,29 +179,8 @@ extension ConsoleIO {
         """#)
     }
     
-    internal static func outputSummary(destination: String, name: String, authorName: String) {
-        let args = ArgumentParameter(destination: destination, name: name, authorName: authorName)
-        
-        guard let summary = args.valueSummary else {
-            ConsoleIO.output("Something wrong happends, Please try again later.", to: .error, thenExit: true)
-            
-            return
-        }
-        
-        // output summary
-        let output = """
-
-        ---------------------------------------
-        ⭐️ Configuration Summary
-        ---------------------------------------
-        \(summary)
-        """
-        
-        ConsoleIO.output(output)
-    }
-    
     internal static func inputDestination() -> String {
-        let message = "📦 Path to Generate a New Target ? (leave blank to use current executable path)"
+        let message = "🔑 Path to Generate a New Target ? (leave blank to use current executable path)"
         let defaultDirectory = FileManager.default.currentDirectoryPath
         
         let validator: (String) -> Bool = { userInputResult -> Bool in
@@ -209,17 +189,17 @@ extension ConsoleIO {
         
         let checkValidationResult: (String, Bool) -> Void = { result, isValid in
             if !isValid {
-                ConsoleIO.output("\(result) doesn't exist, please try again", to: .error)
+                output("\(result) doesn't exist, please try again", to: .error)
             }
         }
         
         let afterValidation: (String) -> Void = { result in
             if result == defaultDirectory {
-                ConsoleIO.output("Path will use \(defaultDirectory)")
+                output("Path will use \(defaultDirectory)")
             }
         }
  
-        return ConsoleIO.input(message, defaultValue: defaultDirectory, validator: validator, checkValidationResult: checkValidationResult, afterValidation: afterValidation)
+        return input(message, defaultValue: defaultDirectory, validator: validator, checkValidationResult: checkValidationResult, afterValidation: afterValidation)
     }
     
     internal static func inputTargetName() -> String {
@@ -232,10 +212,10 @@ extension ConsoleIO {
         }
         
         let failedToValidate: () -> Void = {
-            ConsoleIO.output("value that you input doesn't valid, please try again", to: .error)
+            output("Value that you input doesn't valid, please try again", to: .error)
         }
         
-        let result: String = ConsoleIO.input(message, validator: validator, failedToValidate: failedToValidate)
+        let result: String = input(message, validator: validator, failedToValidate: failedToValidate)
         
         return result.removeWhiteSpace()
     }
@@ -250,9 +230,75 @@ extension ConsoleIO {
         }
         
         let failedToValidate: () -> Void = {
-            ConsoleIO.output("value that you input doesn't valid, please try again", to: .error)
+            output("Value that you input doesn't valid, please try again", to: .error)
         }
         
-        return ConsoleIO.input(message, validator: validator, failedToValidate: failedToValidate)
+        return input(message, validator: validator, failedToValidate: failedToValidate)
+    }
+    
+    internal static func inputTemplateType() -> Template {
+        let message = """
+        📦 What Template you want to generate ? (Choose the number)
+        \(Template.allCases
+            .map{ $0.toUserDescription() }
+            .joined(separator: "\n"))
+        """
+        
+        let validator: (String) -> Bool = { userInputResult -> Bool in
+            guard let selectedNumber = Int(userInputResult), Template(rawValue: selectedNumber) != nil else {
+                return false
+            }
+            
+            return true
+        }
+        
+        let failedToValidate: () -> Void = {
+            output("Please select the number of the template", to: .error)
+        }
+        
+        guard let selectedNumber = Int(input(message, validator: validator, failedToValidate: failedToValidate)), let selectedTemplate = Template(rawValue: selectedNumber) else {
+            
+            output("Something wrong happends, Please try again later.", to: .error, thenExit: true)
+            
+            // just to satisfied guard.
+            return Template(rawValue: -1)!
+        }
+        
+        return selectedTemplate
+    }
+    
+    internal static func inputConfirmation(destination: String, name: String, authorName: String, template: Template) -> Bool {
+        let args = ArgumentParameter(destination: destination, name: name, authorName: authorName, template: template)
+        
+        guard let summary = args.valueSummary else {
+             output("Something wrong happends, Please try again later.", to: .error, thenExit: true)
+            
+            return false
+        }
+        
+        let message = """
+        ---------------------------------------
+        ⭐️ Configuration Summary
+        ---------------------------------------
+        \(summary)
+        ---------------------------------------
+        Is Everything looks good ? (y/n)
+        """
+        
+        let validator: (String) -> Bool = { userInputResult -> Bool in
+            let target = userInputResult.lowercased()
+            
+            guard target == "y" || target == "n" else {
+                return false
+            }
+            
+            return true
+        }
+        
+        let failedToValidate: () -> Void = {
+            output("Please select yes(y) or no(n) only", to: .error)
+        }
+        
+        return input(message, validator: validator, failedToValidate: failedToValidate) == "y"
     }
 }

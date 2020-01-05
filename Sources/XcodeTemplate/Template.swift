@@ -3,40 +3,28 @@
  
  You can get what file and its content based on target type
  */
-public enum Template {
-    case uiTest(targetName: String, authorName: String)
-    case unitTest(targetName: String, authorName: String)
-    
-    /**
-     template integer identifier
-     */
-    public var rawValue: Int {
-        switch self {
-        case .uiTest:
-            return 0
-        case .unitTest:
-            return 1
-        }
-    }
+public enum Template: Int, CaseIterable {
+    case uiTest = 1
+    case unitTest = 2
     
     /**
      template string identifier
      */
-    public var identifier: String {
+    public var name: String {
         switch self {
         case .uiTest:
-            return "ui-test"
+            return "UI Test"
         case .unitTest:
-            return "unit-test"
+            return "Unit Test"
         }
     }
     
     /**
      Files that included on current target
      */
-    public var files: [File] {
+    public func files(targetName: String, authorName: String) -> [File] {
         switch self {
-        case let .uiTest(targetName, authorName):
+        case .uiTest:
             return [
                 File(fileName: "Info",
                      content: TemplateContent.infoPlist(),
@@ -45,7 +33,7 @@ public enum Template {
                     content: TemplateContent.unitTest(targetName: targetName, authorName: authorName),
                     extension: "swift")
             ]
-        case let .unitTest(targetName, authorName):
+        case .unitTest:
             return [
                 File(fileName: "Info",
                      content: TemplateContent.infoPlist(),

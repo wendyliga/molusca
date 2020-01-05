@@ -2,6 +2,7 @@ internal enum Argument: CaseIterable{
     case name
     case destination
     case author
+    case template
     case help
     case version
     
@@ -13,6 +14,8 @@ internal enum Argument: CaseIterable{
             return ["--destination", "-d"]
         case .author:
             return ["--author", "-a"]
+        case .template:
+            return ["--template", "-t"]
         case .help:
             return ["--help", "-h"]
         case .version:
@@ -32,6 +35,8 @@ internal enum Argument: CaseIterable{
             return "Show Help"
         case .version:
             return "\(appName) Current Version"
+        case .template:
+            return "Template you want ot generate"
         }
     }
     

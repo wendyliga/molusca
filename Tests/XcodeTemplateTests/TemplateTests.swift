@@ -4,32 +4,34 @@ import XCTest
 
 internal final class TemplateTests: XCTestCase {
     internal func test_unitTestTemplate() {
-        let unitTestTemplate = Template.unitTest(targetName: "Molusca", authorName: "Wendy Liga")
+        let unitTestTemplate = Template.unitTest
+        let files = unitTestTemplate.files(targetName: "Molusca", authorName: "Wendy Liga")
         
-        XCTAssert(unitTestTemplate.files.contains(where: { file -> Bool in
+        XCTAssert(files.contains(where: { file -> Bool in
             file.fileName == "Info" && file.extension == "plist"
         }))
         
-        XCTAssert(unitTestTemplate.files.contains(where: { file -> Bool in
+        XCTAssert(files.contains(where: { file -> Bool in
             file.fileName == "MoluscaTests" && file.extension == "swift"
         }))
         
-        XCTAssertEqual(unitTestTemplate.rawValue, 1)
-        XCTAssertEqual(unitTestTemplate.identifier, "unit-test")
+        XCTAssertEqual(unitTestTemplate.rawValue, 2)
+        XCTAssertEqual(unitTestTemplate.name, "Unit Test")
     }
     
     internal func test_uiTestTemplate() {
-        let uiTestTemplate = Template.uiTest(targetName: "Molusca", authorName: "Wendy Liga")
+        let uiTestTemplate = Template.uiTest
+        let files = uiTestTemplate.files(targetName: "Molusca", authorName: "Wendy Liga")
         
-        XCTAssert(uiTestTemplate.files.contains(where: { file -> Bool in
+        XCTAssert(files.contains(where: { file -> Bool in
             file.fileName == "Info" && file.extension == "plist"
         }))
         
-        XCTAssert(uiTestTemplate.files.contains(where: { file -> Bool in
+        XCTAssert(files.contains(where: { file -> Bool in
             file.fileName == "MoluscaUITests" && file.extension == "swift"
         }))
         
-        XCTAssertEqual(uiTestTemplate.rawValue, 0)
-        XCTAssertEqual(uiTestTemplate.identifier, "ui-test")
+        XCTAssertEqual(uiTestTemplate.rawValue, 1)
+        XCTAssertEqual(uiTestTemplate.name, "UI Test")
     }
 }

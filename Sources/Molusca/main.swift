@@ -50,7 +50,18 @@ let targetName = argumentParameter.name ?? ConsoleIO.inputTargetName()
 let authorName = argumentParameter.authorName ?? ConsoleIO.inputAuthorName()
 
 /**
+ Template
+ */
+let template = argumentParameter.templateType ?? ConsoleIO.inputTemplateType()
+
+/**
  Confirmation
  */
 
-ConsoleIO.outputSummary(destination: destination, name: targetName, authorName: authorName)
+let isUserConfirm = ConsoleIO.inputConfirmation(destination: destination, name: targetName, authorName: authorName, template: template)
+
+if !isUserConfirm {
+    ConsoleIO.output("Bye-Bye", prefix: "👋 ", thenExit: true)
+}
+
+ConsoleIO.output("continue to generation")
