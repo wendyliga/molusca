@@ -9,17 +9,6 @@ extension String {
     }
     
     /**
-     Return nil if string is empty
-     */
-    public var nonEmpty: String? {
-        guard count > 0 else {
-            return nil
-        }
-        
-        return self
-    }
-    
-    /**
      Add identation in front of string
      
      Example

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ConsoleIO",
+        "repositoryURL": "https://github.com/wendyliga/ConsoleIO.git",
+        "state": {
+          "branch": null,
+          "revision": "2c124e8100073d098d67182314b6c8a981357491",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

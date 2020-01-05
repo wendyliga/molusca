@@ -1,3 +1,5 @@
+import ConsoleIO
+
 /**
  Molusca Configuration
  */
@@ -24,7 +26,7 @@ if argumentParameter.checkHelp {
  Check Version
  */
 if argumentParameter.checkVersion {
-    ConsoleIO.output("\(appName) current version is \(appVersion)", thenExit: true)
+    output("\(appName) current version is \(appVersion)", thenExit: true)
 }
 
 // MARK: - Main
@@ -61,7 +63,7 @@ let template = argumentParameter.templateType ?? ConsoleIO.inputTemplateType()
 let isUserConfirm = ConsoleIO.inputConfirmation(destination: destination, name: targetName, authorName: authorName, template: template)
 
 if !isUserConfirm {
-    ConsoleIO.output("Bye-Bye", prefix: "👋 ", thenExit: true)
+    output("Bye-Bye", prefix: "👋 ", thenExit: true)
 }
 
-ConsoleIO.output("continue to generation")
+output("continue to generation")

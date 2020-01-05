@@ -4,33 +4,12 @@ import XCTest
 
 internal final class StringTests: XCTestCase {
     internal static var allTests = [
-        ("test_nonEmpty_withNonEmptyString", test_nonEmpty_withNonEmptyString),
-        ("test_nonEmpty_withEmptyString", test_nonEmpty_withEmptyString),
-        ("test_nonEmpty_withNilString", test_nonEmpty_withNilString),
         ("test_withPrefixIdentation_withValidIdentation", test_withPrefixIdentation_withValidIdentation),
         ("test_withPrefixIdentation_withNonValidIdentation", test_withPrefixIdentation_withNonValidIdentation),
         ("test_separate", test_separate),
         ("test_string_nonEmptyArray", test_string_nonEmptyArray),
         ("test_string_emptyArray", test_string_emptyArray),
     ]
-    
-    internal func test_nonEmpty_withNonEmptyString() {
-        let string = "Hello World"
-        
-        XCTAssertEqual(string.nonEmpty, "Hello World")
-    }
-    
-    internal func test_nonEmpty_withEmptyString() {
-        let string = ""
-        
-        XCTAssertEqual(string.nonEmpty, nil)
-    }
-    
-    internal func test_nonEmpty_withNilString() {
-        let string: String? = nil
-        
-        XCTAssertEqual(string?.nonEmpty, nil)
-    }
     
     internal func test_withPrefixIdentation_withValidIdentation() {
         let string = "Hello World"
