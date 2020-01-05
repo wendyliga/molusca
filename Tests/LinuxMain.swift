@@ -1,10 +1,12 @@
 import XCTest
 
 import MoluscaTests
-import moluscaHelperTests
+import MoluscaHelperTests
+import XcodeTemplateTests
 
 var tests = [XCTestCaseEntry]()
-tests += moluscaTests.allTests()
-tests += moluscaHelperTests.allTests()
+tests += MoluscaTests.allTests()
+tests += MoluscaHelperTests.allTests()
+tests += XcodeTemplateTests.allTests()
 
 XCTMain(tests)

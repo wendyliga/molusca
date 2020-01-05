@@ -7,9 +7,11 @@ internal final class StringTests: XCTestCase {
         ("test_nonEmpty_withNonEmptyString", test_nonEmpty_withNonEmptyString),
         ("test_nonEmpty_withEmptyString", test_nonEmpty_withEmptyString),
         ("test_nonEmpty_withNilString", test_nonEmpty_withNilString),
-        ("test_withoutSuffix_withValidString", test_withoutSuffix_withValidString),
-        ("test_withoutSuffix_withNonValidParameter", test_withoutSuffix_withNonValidParameter),
-        ("test_withoutSuffix_withEmptyString", test_withoutSuffix_withEmptyString),
+        ("test_withPrefixIdentation_withValidIdentation", test_withPrefixIdentation_withValidIdentation),
+        ("test_withPrefixIdentation_withNonValidIdentation", test_withPrefixIdentation_withNonValidIdentation),
+        ("test_separate", test_separate),
+        ("test_string_nonEmptyArray", test_string_nonEmptyArray),
+        ("test_string_emptyArray", test_string_emptyArray),
     ]
     
     internal func test_nonEmpty_withNonEmptyString() {
@@ -30,21 +32,33 @@ internal final class StringTests: XCTestCase {
         XCTAssertEqual(string?.nonEmpty, nil)
     }
     
-    internal func test_withoutSuffix_withValidString() {
+    internal func test_withPrefixIdentation_withValidIdentation() {
         let string = "Hello World"
         
-        XCTAssertEqual(string.withoutSuffix("World"), "Hello ")
+        XCTAssertEqual(string.withPrefixIdentation(count: 1), "    Hello World")
     }
     
-    internal func test_withoutSuffix_withNonValidParameter() {
+    internal func test_withPrefixIdentation_withNonValidIdentation() {
         let string = "Hello World"
         
-        XCTAssertEqual(string.withoutSuffix("Molusca"), "Hello World")
+        XCTAssertEqual(string.withPrefixIdentation(count: -1), "Hello World")
     }
     
-    internal func test_withoutSuffix_withEmptyString() {
-        let string = ""
+    internal func test_separate() {
+        let string = "Hello"
         
-        XCTAssertEqual(string.withoutSuffix("World"), "")
+        XCTAssertEqual(string.separate(with: "World", offset: 6), "Hello World")
+    }
+    
+    internal func test_string_nonEmptyArray() {
+        let array = ["Apple", "Banana", "Orange"]
+        
+        XCTAssertEqual(array.stringValue(), "Apple, Banana, Orange")
+    }
+    
+    internal func test_string_emptyArray() {
+        let array: [String] = []
+        
+        XCTAssertEqual(array.stringValue(), "")
     }
 }

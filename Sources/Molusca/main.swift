@@ -1,23 +1,56 @@
-import Foundation
-import MoluscaHelper
+/**
+ Molusca Configuration
+ */
+internal let appName = "Molusca"
+internal let appVersion = "0.0.1"
 
-func askForDestination() -> String {
-    print("Path to generate a project?")
-    let destination = readLine()?.nonEmpty
+/**
+ Initilialize argument parameter
+ */
+let argumentParameter = ArgumentParameter(with: CommandLine.arguments)
 
-    let fileManager = FileManager.default
+// MARK: - Help mode
 
-    if let destination = destination {
-        guard fileManager.fileExists(atPath: destination) else {
-            print("That path doesn't exist. Try again.")
-            return askForDestination()
-        }
-
-        return destination
-    }
-
-    return fileManager.currentDirectoryPath
+/**
+ Help Mode
+ */
+if argumentParameter.checkHelp {
+    ConsoleIO.outputHelp()
 }
 
-let arguments = Argument(with: CommandLine.arguments)
-let destination = arguments.destination ?? askForDestination()
+// MARK: - Check Version
+
+/**
+ Check Version
+ */
+if argumentParameter.checkVersion {
+    ConsoleIO.output("\(appName) current version is \(appVersion)", thenExit: true)
+}
+
+// MARK: - Main
+
+/**
+ Show Header
+ */
+ConsoleIO.outputHeader(appVersion: appVersion)
+
+/**
+ Destination value or if nil, ask user to provide one.
+ */
+let destination = argumentParameter.destination ?? ConsoleIO.inputDestination()
+
+/**
+ Target name value
+ */
+let targetName = argumentParameter.name ?? ConsoleIO.inputTargetName()
+
+/**
+ Author name
+ */
+let authorName = argumentParameter.authorName ?? ConsoleIO.inputAuthorName()
+
+/**
+ Confirmation
+ */
+
+ConsoleIO.outputSummary(destination: destination, name: targetName, authorName: authorName)
