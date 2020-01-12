@@ -66,6 +66,64 @@ extension String {
     }
     
     /**
+     remove prefix on string
+     
+     Example:
+     ```
+     let string = "$10.000"
+     let stringWithoutPrefix = string.withoutPrefix("$") -> "10.000"
+     
+     or
+     
+     let string = "~/document"
+     let stringWithoutPrefix = string.withoutPrefix(".") -> "~/document"
+     ```
+     
+     - Parameters:
+         - prefix: text you want to remove
+         - replaceWith: if you want to replace with spesific string
+     
+     - Returns: String with remove prefix
+     */
+    public func withoutPrefix(_ prefix: String, replaceWith newString: String = "") -> String {
+        guard hasPrefix(prefix) else {
+            return self
+        }
+        
+        let endIndex = index(startIndex, offsetBy: prefix.count)
+        return replacingCharacters(in: startIndex..<endIndex, with: newString)
+    }
+    
+    /**
+    remove suffix on string
+    
+    Example:
+    ```
+    let string = "10.000."
+    let stringWithoutPrefix = string.withoutPrefix(".") -> "10.000"
+    
+    or
+    
+    let string = "~/document"
+    let stringWithoutPrefix = string.withoutPrefix(".") -> "~/document"
+    ```
+    
+    - Parameters:
+        - suffix: text you want to remove
+        - replaceWith: if you want to replace with spesific string
+    
+    - Returns: String with remove suffix
+    */
+    public func withoutSuffix(_ suffix: String, replaceWith newString: String = "") -> String {
+        guard hasSuffix(suffix) else {
+            return self
+        }
+        
+        let startIndex = index(endIndex, offsetBy: -suffix.count)
+        return replacingCharacters(in: startIndex..<endIndex, with: newString)
+    }
+    
+    /**
      remote white space inside `String`
      */
     public func removeWhiteSpace() -> String{

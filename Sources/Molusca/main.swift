@@ -6,16 +6,27 @@ let template = Template.unitTest
     .contents(targetName: "Test", authorName: "Wendy Liga")
     .map { File(name: $0.fileName + "." + $0.extension, content: $0.content) }
 
-let batchOperation = BatchFileOperation(files: template, path: "/Users/wendyliga/code/molusca")
+//let batchOperation = BatchFileOperation(files: template, path: "/Users/wendyliga/code/molusca")
 
+//do {
+//    let result = try Explorer.default.write(operation: batchOperation, writingStrategy: .overwrite).get()
+//    print(">>> result \(result)")
+//} catch let error {
+//    print(">>> error: \(error.localizedDescription)")
+//}
 
+let folder1 = Folder(name: "tvOS", files: template)
+let folder2 = Folder(name: "iOS", files: template)
+let folders = [folder1, folder2]
+let folderOperation = BatchFolderOperation(folders: folders, path: "~/code/molusca")
+   
 do {
-    let result = try Explorer.default.write(operation: batchOperation, writingStrategy: .overwrite).get()
+    let result = try Explorer.default.write(operation: folderOperation, writingStrategy: .safe).get()
     print(">>> result \(result)")
 } catch let error {
     print(">>> error: \(error.localizedDescription)")
 }
-    
+
 //template.forEach{
 //    print(">>> \($0.name) \(Explorer.default.write(file: $0, at: , writingStrategy: .overwrite))")
 //}

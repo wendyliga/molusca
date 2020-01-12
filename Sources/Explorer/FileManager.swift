@@ -4,6 +4,7 @@ public protocol FileProvider {
     func fileExists(atPath: String) -> Bool
     func removeItem(atPath: String) throws
     func createFile(atPath: String, contents: Data?, attributes: [FileAttributeKey : Any]?) -> Bool
+    func createDirectory(atPath: String, withIntermediateDirectories: Bool, attributes: [FileAttributeKey : Any]?) throws
 }
 
 public class DefaultFileProvider: FileProvider {
@@ -16,10 +17,14 @@ public class DefaultFileProvider: FileProvider {
     }
     
     public func removeItem(atPath: String) throws {
-        return try fileManager.removeItem(atPath: atPath)
+        try fileManager.removeItem(atPath: atPath)
     }
     
     public func createFile(atPath: String, contents: Data?, attributes: [FileAttributeKey : Any]? = nil) -> Bool {
         return fileManager.createFile(atPath: atPath, contents: contents, attributes: attributes)
+    }
+    
+    public func createDirectory(atPath: String, withIntermediateDirectories: Bool, attributes: [FileAttributeKey : Any]? = nil) throws {
+        try fileManager.createDirectory(atPath: atPath, withIntermediateDirectories: withIntermediateDirectories, attributes: attributes)
     }
 }
