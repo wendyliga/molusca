@@ -1,7 +1,7 @@
 import Foundation
 import ConsoleIO
 import XcodeTemplate
-import MoluscaHelper
+import SwiftKit
 
 internal class ConsoleIO {
     internal static func outputHelp() {

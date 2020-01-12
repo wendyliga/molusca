@@ -22,30 +22,30 @@ public enum Template: Int, CaseIterable {
     /**
      Files that included on current target
      */
-    public func files(targetName: String, authorName: String) -> [File] {
+    public func contents(targetName: String, authorName: String) -> [Content] {
         switch self {
         case .uiTest:
             return [
-                File(fileName: "Info",
+                Content(fileName: "Info",
                      content: TemplateContent.infoPlist(),
                      extension: "plist"),
-                File(fileName: "\(targetName)UITests",
+                Content(fileName: "\(targetName)UITests",
                     content: TemplateContent.unitTest(targetName: targetName, authorName: authorName),
                     extension: "swift")
             ]
         case .unitTest:
             return [
-                File(fileName: "Info",
+                Content(fileName: "Info",
                      content: TemplateContent.infoPlist(),
                      extension: "plist"),
-                File(fileName: "\(targetName)Tests",
+                Content(fileName: "\(targetName)Tests",
                     content: TemplateContent.uiTest(targetName: targetName, authorName: authorName),
                     extension: "swift")
             ]
         }
     }
     
-    public struct File {
+    public struct Content {
         public let fileName: String
         public let content: String
         public let `extension`: String

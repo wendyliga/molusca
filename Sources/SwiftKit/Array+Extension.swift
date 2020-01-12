@@ -45,4 +45,11 @@ extension Array {
         
         return self[index + 1]
     }
+    
+    /**
+     Array that's not empty will be true
+     */
+    public var isNotEmpty: Bool {
+        return !self.isEmpty
+    }
 }

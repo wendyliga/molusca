@@ -1,3 +1,5 @@
+import SwiftKit
+
 internal enum Argument: CaseIterable{
     case name
     case destination

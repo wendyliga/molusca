@@ -1,4 +1,30 @@
 import ConsoleIO
+import Explorer
+import XcodeTemplate
+
+let template = Template.unitTest
+    .contents(targetName: "Test", authorName: "Wendy Liga")
+    .map { File(name: $0.fileName + "." + $0.extension, content: $0.content) }
+
+let batchOperation = BatchFileOperation(files: template, path: "/Users/wendyliga/code/molusca")
+
+
+do {
+    let result = try Explorer.default.write(operation: batchOperation, writingStrategy: .overwrite).get()
+    print(">>> result \(result)")
+} catch let error {
+    print(">>> error: \(error.localizedDescription)")
+}
+    
+//template.forEach{
+//    print(">>> \($0.name) \(Explorer.default.write(file: $0, at: , writingStrategy: .overwrite))")
+//}
+
+//for file in files {
+//    let file =
+    
+//}
+
 
 /**
  Molusca Configuration
@@ -6,6 +32,7 @@ import ConsoleIO
 internal let appName = "Molusca"
 internal let appVersion = "0.0.1"
 
+/*
 /**
  Initilialize argument parameter
  */
@@ -67,3 +94,4 @@ if !isUserConfirm {
 }
 
 output("continue to generation")
+*/

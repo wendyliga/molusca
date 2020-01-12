@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import MoluscaHelper
+@testable import SwiftKit
 
 internal final class StringTests: XCTestCase {
     internal static var allTests = [

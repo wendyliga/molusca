@@ -7,18 +7,20 @@ let package = Package(
     name: "Molusca",
     products: [
         .executable(name: "Molusca", targets: ["Molusca"]),
-        .library(name: "MoluscaHelper", targets: ["MoluscaHelper"]),
+        .library(name: "SwiftKit", targets: ["SwiftKit"]),
         .library(name: "XcodeTemplate", targets: ["XcodeTemplate"]),
+        .library(name: "Explorer", targets: ["Explorer"]),
     ],
     dependencies: [
         .package(url: "https://github.com/wendyliga/ConsoleIO.git", from: "1.0.0")
     ],
     targets: [
-        .target(name: "Molusca", dependencies: ["MoluscaHelper", "XcodeTemplate", "ConsoleIO"]),
-        .target(name: "MoluscaHelper", dependencies: []),
+        .target(name: "Molusca", dependencies: ["SwiftKit", "XcodeTemplate", "ConsoleIO", "Explorer"]),
+        .target(name: "SwiftKit", dependencies: []),
         .target(name: "XcodeTemplate", dependencies: []),
+        .target(name: "Explorer", dependencies: ["SwiftKit"]),
         .testTarget(name: "MoluscaTests", dependencies: ["Molusca"]),
-        .testTarget(name: "MoluscaHelperTests", dependencies: ["MoluscaHelper"]),
+        .testTarget(name: "SwiftKitTests", dependencies: ["SwiftKit"]),
         .testTarget(name: "XcodeTemplateTests", dependencies: ["XcodeTemplate"]),
     ]
 )

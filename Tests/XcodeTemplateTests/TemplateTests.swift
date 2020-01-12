@@ -5,7 +5,7 @@ import XCTest
 internal final class TemplateTests: XCTestCase {
     internal func test_unitTestTemplate() {
         let unitTestTemplate = Template.unitTest
-        let files = unitTestTemplate.files(targetName: "Molusca", authorName: "Wendy Liga")
+        let files = unitTestTemplate.contents(targetName: "Molusca", authorName: "Wendy Liga")
         
         XCTAssert(files.contains(where: { file -> Bool in
             file.fileName == "Info" && file.extension == "plist"
@@ -21,7 +21,7 @@ internal final class TemplateTests: XCTestCase {
     
     internal func test_uiTestTemplate() {
         let uiTestTemplate = Template.uiTest
-        let files = uiTestTemplate.files(targetName: "Molusca", authorName: "Wendy Liga")
+        let files = uiTestTemplate.contents(targetName: "Molusca", authorName: "Wendy Liga")
         
         XCTAssert(files.contains(where: { file -> Bool in
             file.fileName == "Info" && file.extension == "plist"
