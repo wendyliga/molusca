@@ -11,6 +11,8 @@ internal final class ArrayTests: XCTestCase {
         ("test_arrayAfterSubscript_withValidValue", test_arrayAfterSubscript_withValidValue),
         ("test_arrayAfterSubscript_withOutOfBoundValue", test_arrayAfterSubscript_withOutOfBoundValue),
         ("test_arrayAfterSubscript_withNegatifValue", test_arrayAfterSubscript_withNegatifValue),
+        ("test_isNotEmpty_withNonEmptyArray",test_isNotEmpty_withNonEmptyArray),
+        ("test_isNotEmpty_withEmptyArray",test_isNotEmpty_withEmptyArray),
     ]
     
     internal func test_arraySafeSubscript_withValidValue() {
@@ -47,5 +49,17 @@ internal final class ArrayTests: XCTestCase {
         let array = [1,2,3,4,5]
         
         XCTAssertEqual(array[after: -1], nil)
+    }
+    
+    internal func test_isNotEmpty_withNonEmptyArray() {
+        let array = [1,2,3,4,5]
+        
+        XCTAssertEqual(array.isNotEmpty, true)
+    }
+    
+    internal func test_isNotEmpty_withEmptyArray() {
+        let array: [String] = []
+        
+        XCTAssertEqual(array.isNotEmpty, false)
     }
 }

@@ -40,4 +40,40 @@ internal final class StringTests: XCTestCase {
         
         XCTAssertEqual(array.stringValue(), "")
     }
+    
+    internal func test_withoutPrefix_withValidString() {
+        let string = "$10.000"
+        
+        XCTAssertEqual(string.withoutPrefix("$"), "10.000")
+        XCTAssertEqual(string.withoutPrefix("$10"), ".000")
+        XCTAssertEqual(string.withoutPrefix("#"), "$10.000")
+        XCTAssertEqual(string.withoutPrefix("$", replaceWith: "Rp"), "Rp10.000")
+    }
+    
+    internal func test_withoutPrefix_withEmptyString() {
+        let string = ""
+        
+        XCTAssertEqual(string.withoutPrefix("$"), "")
+        XCTAssertEqual(string.withoutPrefix("$10"), "")
+        XCTAssertEqual(string.withoutPrefix("#"), "")
+        XCTAssertEqual(string.withoutPrefix("$", replaceWith: "Rp"), "")
+    }
+    
+    internal func test_withoutSuffix_withValidString() {
+        let string = "at last..."
+        
+        XCTAssertEqual(string.withoutSuffix("."), "at last..")
+        XCTAssertEqual(string.withoutSuffix("t..."), "at las")
+        XCTAssertEqual(string.withoutSuffix("#"), "at last...")
+        XCTAssertEqual(string.withoutSuffix("...", replaceWith: "___"), "at last___")
+    }
+    
+    internal func test_withoutSuffix_withEmptyString() {
+        let string = ""
+        
+        XCTAssertEqual(string.withoutSuffix("$"), "")
+        XCTAssertEqual(string.withoutSuffix("$10"), "")
+        XCTAssertEqual(string.withoutSuffix("#"), "")
+        XCTAssertEqual(string.withoutSuffix("...", replaceWith: "___"), "")
+    }
 }
