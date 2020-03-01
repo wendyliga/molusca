@@ -25,7 +25,7 @@ internal struct Generate: ParsableCommand {
     @Option(help: "Template you want to generate, use `template` command if you want to see template list")
     internal var template: Int
 
-    @Flag(help: "generate with description print out")
+    @Flag(help: "Generate with description print out")
     internal var isVerbose: Bool
     
     internal func run() throws {

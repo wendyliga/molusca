@@ -1,8 +1,9 @@
-
 /**
  Molusca Configuration
  */
-internal let appName = "Molusca"
-internal let appVersion = "0.0.1"
+
+let appName = "Molusca"
+let appVersion = "0.0.1"
+let githubPage = "https://github.com/wendyliga/molusca"
 
 Molusca.main()

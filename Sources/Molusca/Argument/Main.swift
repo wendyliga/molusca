@@ -13,7 +13,7 @@ struct Molusca: ParsableCommand {
         
         🦠 \#(appName) is Simple App to Generate Xcode Template
         
-        Check more at https://github.com/wendyliga/molusca
+        Check more at \#(githubPage)
         """#
     }
     
