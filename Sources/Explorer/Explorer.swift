@@ -1,7 +1,15 @@
 import Foundation
 import SwiftKit
+import ConsoleIO
 
 public class Explorer {
+    /**
+     Write Operation Callback
+     
+     Parameter target name: file name Write Operation is currently working on
+     */
+    public typealias WriteOperationCurrentProgress = ((String) -> Void)
+    
     /**
      File manager instance that will used for `Explorer` Operation
      */
@@ -74,11 +82,20 @@ extension Explorer {
      - Parameters:
         - operation: Write Operation, will write spesific to the operation
         - writingStrategy: how you want the operation to write based on spesific strategy
+        - currentProgressCallback: add your custom action in the middle of the operation (for example, you want to print the current progress operation)
      
      - Returns: Result of the operation.
      */
     @discardableResult
-    public func write(operation: SingleFileOperation, writingStrategy: WriteStrategy = .safe) -> Result<SingleFileOperation, Error> {
+    public func write(
+        operation: SingleFileOperation,
+        writingStrategy: WriteStrategy = .safe,
+        currentProgressCallback progressCallback: WriteOperationCurrentProgress? = nil
+    ) -> Result<SingleFileOperation, Error> {
+        let callback: () -> Void = {
+            progressCallback?(operation.file.name)
+        }
+        
         guard operation.path.isNotEmpty else {
             return .failure(FileError.pathDidNotExist(path: operation.path))
         }
@@ -94,6 +111,9 @@ extension Explorer {
         }
         
         if writingStrategy == .skippable && fileManager.fileExists(atPath: target) == true {
+            // execute callback
+            callback()
+            
             return .success(operation)
         }
         
@@ -101,6 +121,9 @@ extension Explorer {
         guard fileManager.createFile(atPath: target, contents: operation.file.content?.data(using: .utf8), attributes: nil) else {
             return .failure(FileError.writeError(file: target))
         }
+        
+        // execute callback
+        callback()
         
         return .success(operation)
     }
@@ -111,17 +134,22 @@ extension Explorer {
     - Parameters:
        - operation: Write Operation, will write spesific to the operation
        - writingStrategy: how you want the operation to write based on spesific strategy
+       - currentProgressCallback: add your custom action in the middle of the operation (for example, you want to print the current progress operation)
     
     - Returns: Result of the operation.
     */
     @discardableResult
-    public func write(operation: BatchFileOperation, writingStrategy: WriteStrategy = .safe) -> Result<BatchFileOperation, Error> {
+    public func write(
+        operation: BatchFileOperation,
+        writingStrategy: WriteStrategy = .safe,
+        currentProgressCallback progressCallback: WriteOperationCurrentProgress? = nil
+    ) -> Result<BatchFileOperation, Error> {
         guard operation.path.isNotEmpty else {
             return .failure(FileError.pathDidNotExist(path: operation.path))
         }
         
         let results = operation.files.map {
-            write(operation: SingleFileOperation(file: $0, path: operation.path), writingStrategy: writingStrategy)
+            write(operation: SingleFileOperation(file: $0, path: operation.path), writingStrategy: writingStrategy, currentProgressCallback: progressCallback)
         }
         
         let writeFailureResults = results.compactMap{ $0.nonSuccessResult }
@@ -149,11 +177,16 @@ extension Explorer {
      - Parameters:
         - operation: Write Operation, will write spesific to the operation
         - writingStrategy: how you want the operation to write based on spesific strategy
+        - currentProgressCallback: add your custom action in the middle of the operation (for example, you want to print the current progress operation)
      
      - Returns: Result of the operation.
      */
     @discardableResult
-    public func write(operation: SingleFolderOperation, writingStrategy: WriteStrategy) -> Result<SingleFolderOperation, Error> {
+    public func write(
+        operation: SingleFolderOperation,
+        writingStrategy: WriteStrategy,
+        currentProgressCallback progressCallback: WriteOperationCurrentProgress? = nil
+    ) -> Result<SingleFolderOperation, Error> {
         guard operation.path.isNotEmpty else {
             return .failure(FileError.pathDidNotExist(path: operation.path))
         }
@@ -172,7 +205,7 @@ extension Explorer {
         
         let batchFileOperation = BatchFileOperation(files: operation.folder.files, path: target)
         
-        if case .failure(let error) = write(operation: batchFileOperation, writingStrategy: writingStrategy) {
+        if case .failure(let error) = write(operation: batchFileOperation, writingStrategy: writingStrategy, currentProgressCallback: progressCallback) {
              return .failure(error)
         }
         
@@ -185,17 +218,22 @@ extension Explorer {
     - Parameters:
        - operation: Write Operation, will write spesific to the operation
        - writingStrategy: how you want the operation to write based on spesific strategy
+        - currentProgressCallback: add your custom action in the middle of the operation (for example, you want to print the current progress operation)
     
     - Returns: Result of the operation.
     */
     @discardableResult
-    public func write(operation: BatchFolderOperation, writingStrategy: WriteStrategy) -> Result<BatchFolderOperation, Error> {
+    public func write(
+        operation: BatchFolderOperation,
+        writingStrategy: WriteStrategy,
+        currentProgressCallback progressCallback: WriteOperationCurrentProgress? = nil
+    ) -> Result<BatchFolderOperation, Error> {
         guard operation.path.isNotEmpty else {
             return .failure(FileError.pathDidNotExist(path: operation.path))
         }
         
         let results = operation.folders.map {
-            write(operation: SingleFolderOperation(folder: $0, path: operation.path), writingStrategy: writingStrategy)
+            write(operation: SingleFolderOperation(folder: $0, path: operation.path), writingStrategy: writingStrategy, currentProgressCallback: progressCallback)
         }
         
         let writeFailureResults = results.compactMap{ $0.nonSuccessResult }

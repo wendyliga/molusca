@@ -12,12 +12,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/wendyliga/ConsoleIO.git", from: "1.0.0"),
-        .package(url: "https://github.com/wendyliga/SwiftKit.git", from: "1.0.0"),
+        .package(url: "https://github.com/wendyliga/SwiftKit.git", from: "1.0.0")
     ],
     targets: [
         .target(name: "Molusca", dependencies: ["SwiftKit", "XcodeTemplate", "ConsoleIO", "Explorer"]),
         .target(name: "XcodeTemplate", dependencies: []),
-        .target(name: "Explorer", dependencies: ["SwiftKit"]),
+        .target(name: "Explorer", dependencies: ["SwiftKit", "ConsoleIO"]),
         .testTarget(name: "MoluscaTests", dependencies: ["Molusca"]),
         .testTarget(name: "XcodeTemplateTests", dependencies: ["XcodeTemplate"]),
     ]

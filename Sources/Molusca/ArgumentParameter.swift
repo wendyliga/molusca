@@ -7,6 +7,7 @@ internal struct ArgumentParameter {
     internal var templateType: Template?
     internal var checkHelp: Bool = false
     internal var checkVersion: Bool = false
+    internal var startWizard: Bool = false
     
     internal var valueSummary: String? {
         guard let destination = destination, let name = name, let authorName = authorName, let template = templateType else {
@@ -16,7 +17,7 @@ internal struct ArgumentParameter {
         return """
         ✅ Path: \(destination)
         ✅ Template: \(template.name)
-        ✅ TargetName: \(name)
+        ✅ Target Name: \(name)
         ✅ Author: \(authorName)
         """
     }
@@ -47,6 +48,8 @@ internal struct ArgumentParameter {
                 checkHelp = true
             case _ where Argument.version.identifier.contains(argument):
                 checkVersion = true
+            case _ where Argument.wizard.identifier.contains(argument):
+                startWizard = true
             default:
                 break
             }

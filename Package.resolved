@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/wendyliga/ConsoleIO.git",
         "state": {
           "branch": null,
-          "revision": "2c124e8100073d098d67182314b6c8a981357491",
-          "version": "1.0.0"
+          "revision": "dfba8b0c43adb69d26fc040fb2bd97e55e7a415e",
+          "version": "1.0.2"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/wendyliga/SwiftKit.git",
         "state": {
           "branch": null,
-          "revision": "d1217b3989183e194bb8cc9f2a5d4670f5941144",
-          "version": "1.0.0"
+          "revision": "29671cab4ee696755375e39d0b35ca23d6ddd83a",
+          "version": "1.1.0"
         }
       }
     ]

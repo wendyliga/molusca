@@ -7,6 +7,7 @@ internal enum Argument: CaseIterable{
     case template
     case help
     case version
+    case wizard
     
     internal var identifier: [String] {
         switch self {
@@ -19,9 +20,11 @@ internal enum Argument: CaseIterable{
         case .template:
             return ["--template", "-t"]
         case .help:
-            return ["--help", "-h"]
+            return ["help"]
         case .version:
-            return ["--version", "-v"]
+            return ["version"]
+        case .wizard:
+            return ["wizard"]
         }
     }
     
@@ -39,6 +42,8 @@ internal enum Argument: CaseIterable{
             return "\(appName) Current Version"
         case .template:
             return "Template you want ot generate"
+        case .wizard:
+            return "Use \(appName) with Wizard Mode, you will get guidance on how to use \(appName)"
         }
     }
     
