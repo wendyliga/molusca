@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Explorer",
+        "repositoryURL": "https://github.com/wendyliga/Explorer.git",
+        "state": {
+          "branch": null,
+          "revision": "1ba44fc5958f196251177529c020de6df2c302da",
+          "version": "0.0.1"
+        }
+      },
+      {
         "package": "swift-argument-parser",
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
