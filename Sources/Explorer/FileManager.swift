@@ -5,12 +5,18 @@ public protocol FileProvider {
     func removeItem(atPath: String) throws
     func createFile(atPath: String, contents: Data?, attributes: [FileAttributeKey : Any]?) -> Bool
     func createDirectory(atPath: String, withIntermediateDirectories: Bool, attributes: [FileAttributeKey : Any]?) throws
+    
+    var currentDirectoryPath: String { get }
 }
 
 public class DefaultFileProvider: FileProvider {
     private let fileManager = FileManager.default
     
     public init() {}
+    
+    public var currentDirectoryPath: String {
+        return fileManager.currentDirectoryPath
+    }
     
     public func fileExists(atPath: String) -> Bool {
         return fileManager.fileExists(atPath: atPath)

@@ -256,6 +256,16 @@ extension Explorer {
     }
 }
 
+extension Explorer {
+    public var currentDirectoryPath: String {
+        fileManager.currentDirectoryPath
+    }
+    
+    public func isFileExist(path: String) -> Bool {
+        fileManager.fileExists(atPath: path)
+    }
+}
+
 
 //public func isFolder(atPath path: String) -> Bool {
 //    var objCBool: ObjCBool = false
