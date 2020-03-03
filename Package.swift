@@ -8,6 +8,7 @@ let package = Package(
     products: [
         .executable(name: "Molusca", targets: ["Molusca"]),
         .library(name: "XcodeTemplate", targets: ["XcodeTemplate"]),
+        .library(name: "Mantle", targets: ["Mantle"])
     ],
     dependencies: [
         .package(url: "https://github.com/wendyliga/ConsoleIO.git", from: "1.0.0"),
@@ -16,8 +17,9 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMinor(from: "0.0.1")),
     ],
     targets: [
-        .target(name: "Molusca", dependencies: ["SwiftKit", "XcodeTemplate", "Explorer", "ConsoleIO", "ArgumentParser"]),
+        .target(name: "Molusca", dependencies: ["SwiftKit", "XcodeTemplate", "Explorer", "ConsoleIO", "ArgumentParser", "Mantle"]),
         .target(name: "XcodeTemplate", dependencies: []),
+        .target(name: "Mantle", dependencies: ["SwiftKit", "XcodeTemplate", "Explorer"]),
         .testTarget(name: "MoluscaTests", dependencies: ["Molusca"]),
         .testTarget(name: "XcodeTemplateTests", dependencies: ["XcodeTemplate"]),
     ]

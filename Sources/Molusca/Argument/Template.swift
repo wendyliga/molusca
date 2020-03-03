@@ -18,3 +18,9 @@ internal struct Templates: ParsableCommand {
         """)
     }
 }
+
+extension Template {
+    func toUserDescription() -> String {
+        return "\(self.rawValue)). \(self.name)"
+    }
+}
