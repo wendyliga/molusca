@@ -19,7 +19,7 @@ let package = Package(
     targets: [
         .target(name: "Molusca", dependencies: ["SwiftKit", "XcodeTemplate", "Explorer", "ConsoleIO", "ArgumentParser", "Mantle"]),
         .target(name: "XcodeTemplate", dependencies: []),
-        .target(name: "Mantle", dependencies: ["SwiftKit", "XcodeTemplate", "Explorer"]),
+        .target(name: "Mantle", dependencies: ["SwiftKit", "XcodeTemplate", "Explorer", "ConsoleIO"]),
         .testTarget(name: "MoluscaTests", dependencies: ["Molusca"]),
         .testTarget(name: "XcodeTemplateTests", dependencies: ["XcodeTemplate"]),
     ]
