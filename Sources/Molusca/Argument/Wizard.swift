@@ -1,7 +1,6 @@
 import ArgumentParser
 import ConsoleIO
 import Explorer
-import Mantle
 import XcodeTemplate
 
 struct Wizard: ParsableCommand {
