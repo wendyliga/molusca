@@ -43,7 +43,7 @@ internal struct Generate: ParsableCommand {
     }
 }
 
-public func generate(destination: String, targetName: String, authorName: String, template: Template, isVerbose: Bool = true) {
+internal func generate(destination: String, targetName: String, authorName: String, template: Template, isVerbose: Bool = true) {
     output("Generating...", prefix: "⚙️ ")
     
     let content = template.contents(targetName: targetName, authorName: authorName)

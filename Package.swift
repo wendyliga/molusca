@@ -7,7 +7,7 @@ let package = Package(
     name: "Molusca",
     products: [
         .executable(name: "Molusca", targets: ["Molusca"]),
-        .library(name: "XcodeTemplate", targets: ["XcodeTemplate"]),
+        .library(name: "XcodeTemplate", targets: ["XcodeTemplate"])
     ],
     dependencies: [
         .package(url: "https://github.com/wendyliga/ConsoleIO.git", from: "1.0.0"),
