@@ -40,7 +40,10 @@ public enum Template: Int, CaseIterable {
             .map { $0.content.removeWildCard(targetName: targetName, authorName: authorName, year: year, today: today) }
     }
     
-    private func templateContents(type: Self) -> [TemplateContentRawValue] {
+    /**
+     Get all basic type of files, if you want to custom it
+     */
+    public func templateContents(type: Self) -> [TemplateContentRawValue] {
         switch type {
         case .uiTest:
             return UITestTemplateContent.allCases
