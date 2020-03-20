@@ -1,6 +1,6 @@
 import Foundation
 
-protocol TemplateContentRawValue {
+public protocol TemplateContentRawValue {
     var content: TemplateContent { get }
 }
 
