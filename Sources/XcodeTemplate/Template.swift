@@ -9,6 +9,7 @@ public enum Template: Int, CaseIterable {
     case singleApp = 3
     case bundle = 4
     case framework = 5
+    case singleAppIOS12 = 6
     
     /**
      template string identifier
@@ -21,61 +22,41 @@ public enum Template: Int, CaseIterable {
             return "Unit Test"
         case .singleApp:
             return "Single App"
+        case .singleAppIOS12:
+            return "Single App(iOS 12)"
         case .bundle:
             return "Bundle"
         case .framework:
             return "Framework"
+        
         }
     }
     
     /**
      Files that included on current target
      */
-    public func contents(targetName: String, authorName: String) -> [Content] {
-        switch self {
-        case .uiTest:
-            return [
-                Content(fileName: "Info",
-                     content: TemplateContent.infoPlist(),
-                     extension: "plist"),
-                Content(fileName: "\(targetName)UITests",
-                    content: TemplateContent.unitTest(targetName: targetName, authorName: authorName),
-                    extension: "swift")
-            ]
-        case .unitTest:
-            return [
-                Content(fileName: "Info",
-                     content: TemplateContent.infoPlist(),
-                     extension: "plist"),
-                Content(fileName: "\(targetName)Tests",
-                    content: TemplateContent.uiTest(targetName: targetName, authorName: authorName),
-                    extension: "swift")
-            ]
-        
-        case .singleApp:
-            return  [
-                Content(fileName: "Info", content: TemplateContent.infoPlist(), extension: "plist"),
-                Content(fileName: "AppDelegate", content: TemplateContent.appDelegate(targetName: targetName, authorName: authorName),
-                extension: "swift"),
-                Content(fileName: "SceneDelegate", content: TemplateContent.sceneDelegate(targetName: targetName, authorName: authorName),
-                extension: "swift"),
-                Content(fileName: "LaunchScreen", content: TemplateContent.launchStoryBoard(), extension: "storyboard"),
-                Content(fileName: "ViewController", content: TemplateContent.viewController(targetName: targetName, authorName: authorName), extension: "swift"),
-                
-            ]
-        case .bundle:
-            return [Content(fileName: "Info", content: TemplateContent.bundleInfoPlist(authorName: authorName), extension: "plist")]
-        case .framework:
-            return [
-                Content(fileName: targetName, content: TemplateContent.frameworkHeader(targetName: targetName, authorName: authorName), extension: "h"),
-                Content(fileName: "Info", content: TemplateContent.infoPlist(), extension: "plist")
-            ]
-        }
+    public func contents(targetName: String, authorName: String, year: String = yearStringValue, today: String = todayStringValue) -> [TemplateContent] {
+        return templateContents(type: self)
+            .map { $0.content.removeWildCard(targetName: targetName, authorName: authorName, year: year, today: today) }
     }
     
-    public struct Content {
-        public let fileName: String
-        public let content: String
-        public let `extension`: String
+    /**
+     Get all basic type of files, if you want to custom it
+     */
+    public func templateContents(type: Self) -> [TemplateContentRawValue] {
+        switch type {
+        case .uiTest:
+            return UITestTemplateContent.allCases
+        case .unitTest:
+            return UnitTestTemplateContent.allCases
+        case .singleApp:
+            return SingleAppTemplateContent.allCases
+        case .bundle:
+            return BundleTemplateContent.allCases
+        case .framework:
+            return FrameworkTemplateContent.allCases
+        case .singleAppIOS12:
+            return SingleAppIOS12TemplateContent.allCases
+        }
     }
 }
