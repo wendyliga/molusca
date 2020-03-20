@@ -61,6 +61,26 @@ public enum SingleAppTemplateContent: CaseIterable, TemplateContentRawValue {
     }
 }
 
+public enum SingleAppIOS12TemplateContent: CaseIterable, TemplateContentRawValue {
+    case infoPlist
+    case appDelegate
+    case launchScreen
+    case dummyViewController
+    
+    public var content: TemplateContent {
+        switch self {
+        case .infoPlist:
+            return TemplateContent(fileName: "Info", content: InfoPlist.singleAppIOS12.rawValue, extension: "plist")
+        case .appDelegate:
+            return TemplateContent(fileName: "AppDelegate", content: SwiftFile.singleIOS12AppDelegate.rawValue, extension: "swift")
+        case .launchScreen:
+            return TemplateContent(fileName: "LaunchScreen", content: launchStoryBoard, extension: "swift")
+        case .dummyViewController:
+            return TemplateContent(fileName: "ViewController", content: SwiftFile.dummyViewController.rawValue, extension: "swift")
+        }
+    }
+}
+
 public enum BundleTemplateContent: CaseIterable, TemplateContentRawValue {
     case infoPlist
     

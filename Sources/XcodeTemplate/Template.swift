@@ -9,7 +9,7 @@ public enum Template: Int, CaseIterable {
     case singleApp = 3
     case bundle = 4
     case framework = 5
-//    case singleAppIOS12 = 6
+    case singleAppIOS12 = 6
     
     /**
      template string identifier
@@ -22,12 +22,13 @@ public enum Template: Int, CaseIterable {
             return "Unit Test"
         case .singleApp:
             return "Single App"
+        case .singleAppIOS12:
+            return "Single App(iOS 12)"
         case .bundle:
             return "Bundle"
         case .framework:
             return "Framework"
-//        case .singleAppIOS12:
-//            return "Single App(iOS 12)"
+        
         }
     }
     
@@ -50,7 +51,9 @@ public enum Template: Int, CaseIterable {
         case .bundle:
             return BundleTemplateContent.allCases
         case .framework:
-            return  FrameworkTemplateContent.allCases
+            return FrameworkTemplateContent.allCases
+        case .singleAppIOS12:
+            return SingleAppIOS12TemplateContent.allCases
         }
     }
 }
