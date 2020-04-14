@@ -1,6 +1,7 @@
 import ArgumentParser
 import ConsoleIO
 import Explorer
+import Foundation
 import XcodeTemplate
 
 struct Wizard: ParsableCommand {
@@ -63,30 +64,26 @@ func inputDestination() -> String {
 }
    
 func inputTargetName() -> String {
-   let message = "🧞‍♂️ What your Target Name ? (like `Configuration`, `Login`)"
-   
-   let validator: (String) -> Bool = { userInputResult -> Bool in
-       return userInputResult.nonEmpty?
-           .removeWhiteSpace()
-           .isNotEmpty == true
-   }
-   
-   let failedToValidate: () -> Void = {
-       output("Value that you input doesn't valid, please try again", to: .error)
-   }
-   
-   let result: String = input(message, validator: validator, failedToValidate: failedToValidate)
-   
-   return result.removeWhiteSpace()
+    let message = "🧞‍♂️ What your Target Name ? (like `Configuration`, `Login`)"
+    
+    let validator: (String) -> Bool = { userInputResult -> Bool in
+        userInputResult.noWhiteSpace(replace: .none).nonEmpty != nil
+    }
+    
+    let failedToValidate: () -> Void = {
+        output("Value that you input doesn't valid, please try again", to: .error)
+    }
+    
+    let result: String = input(message, validator: validator, failedToValidate: failedToValidate)
+    
+    return result.noWhiteSpace(replace: .none)
 }
    
 func inputAuthorName() -> String {
    let message = "👨‍💻 What the Author Name ? (like `Jhon Doe`, `Anakin Skywalker`)"
    
    let validator: (String) -> Bool = { userInputResult -> Bool in
-       return userInputResult.nonEmpty?
-           .removeWhiteSpace()
-           .isNotEmpty == true
+       userInputResult.nonEmpty != nil
    }
    
    let failedToValidate: () -> Void = {

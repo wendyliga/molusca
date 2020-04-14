@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/wendyliga/ConsoleIO.git",
         "state": {
           "branch": null,
-          "revision": "dfba8b0c43adb69d26fc040fb2bd97e55e7a415e",
-          "version": "1.0.2"
+          "revision": "3933eb8c8f4ce00d07c2a80896b6463bdf1d31d1",
+          "version": "1.0.3"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/wendyliga/Explorer.git",
         "state": {
           "branch": null,
-          "revision": "1ba44fc5958f196251177529c020de6df2c302da",
-          "version": "0.0.1"
+          "revision": "a20c41d2001e9891ce7189b927386b11780d044b",
+          "version": "0.0.5"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "f6ac7b8118ff5d1bc0faee7f37bf6f8fd8f95602",
-          "version": "0.0.1"
+          "revision": "8d31a0905c346a45c87773ad50862b5b3df8dff6",
+          "version": "0.0.4"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/wendyliga/SwiftKit.git",
         "state": {
           "branch": null,
-          "revision": "29671cab4ee696755375e39d0b35ca23d6ddd83a",
-          "version": "1.1.0"
+          "revision": "391846c051f6c0b83ba729baebb89d3ff92750d4",
+          "version": "2.0.1"
         }
       }
     ]
