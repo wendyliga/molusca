@@ -17,7 +17,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "Molusca", dependencies: ["SwiftKit", "XcodeTemplate", "Explorer", "ConsoleIO", "ArgumentParser"]),
-        .target(name: "XcodeTemplate", dependencies: []),
+        .target(name: "XcodeTemplate", dependencies: ["Explorer"]),
         .testTarget(name: "MoluscaTests", dependencies: ["Molusca"]),
         .testTarget(name: "XcodeTemplateTests", dependencies: ["XcodeTemplate"]),
     ]

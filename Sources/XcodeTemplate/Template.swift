@@ -1,3 +1,5 @@
+import Explorer
+
 /**
  Providing Xcode Template
  
@@ -35,7 +37,7 @@ public enum Template: Int, CaseIterable {
     /**
      Files that included on current target
      */
-    public func contents(targetName: String, authorName: String, year: String = yearStringValue, today: String = todayStringValue) -> [TemplateContent] {
+    public func contents(targetName: String, authorName: String, year: String = yearStringValue, today: String = todayStringValue) -> [Explorable] {
         return templateContents(type: self)
             .map { $0.content.removeWildCard(targetName: targetName, authorName: authorName, year: year, today: today) }
     }

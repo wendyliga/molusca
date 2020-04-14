@@ -1,6 +1,29 @@
+import Explorer
 import XCTest
 
 @testable import XcodeTemplate
+
+extension File: Equatable {
+    public static func == (lhs: File, rhs: File) -> Bool {
+        lhs.name == rhs.name && lhs.content == rhs.content && lhs.extension == rhs.extension
+    }
+}
+
+extension Folder: Equatable {
+    public static func == (lhs: Folder, rhs: Folder) -> Bool {
+        let contentsNotEquatable = zip(lhs.contents, rhs.contents).map { (lhsContent, rhsContent) -> Bool in
+            if lhsContent as? File != nil && rhsContent as? File != nil {
+                return (lhsContent as? File) == (rhsContent as? File)
+            } else if lhsContent as? Folder != nil && rhsContent as? Folder != nil {
+                return (lhsContent as? Folder) == (rhsContent as? Folder)
+            } else {
+                return false
+            }
+        }
+        
+        return lhs.name == rhs.name && contentsNotEquatable.filter { !$0 }.isEmpty
+    }
+}
 
 internal final class TemplateTests: XCTestCase {
     internal func test_unitTestTemplate() {
@@ -69,9 +92,9 @@ internal final class TemplateTests: XCTestCase {
         }
         """
         
-        let testTarget = [TemplateContent(fileName: "Info", content: infoPlist, extension: "plist"), TemplateContent(fileName: "MoluscaTests", content: dummyTest, extension: "swift")]
+        let testTarget = [File(name: "Info", content: infoPlist, extension: "plist"), File(name: "MoluscaTests", content: dummyTest, extension: "swift")]
         
-        XCTAssertEqual(content, testTarget)
+        AssertExplorable(content, testTarget)
     }
     
     internal func test_uiTestTemplate() {
@@ -150,9 +173,9 @@ internal final class TemplateTests: XCTestCase {
         }
         """
         
-        let testTarget = [TemplateContent(fileName: "Info", content: infoPlist, extension: "plist"), TemplateContent(fileName: "MoluscaUITests", content: dummyTest, extension: "swift")]
+        let testTarget = [File(name: "Info", content: infoPlist, extension: "plist"), File(name: "MoluscaUITests", content: dummyTest, extension: "swift")]
         
-        XCTAssertEqual(content, testTarget)
+        AssertExplorable(content, testTarget)
     }
     
     internal func test_frameworkTemplate() {
@@ -180,6 +203,18 @@ internal final class TemplateTests: XCTestCase {
 
         """
         
-        XCTAssertEqual(content, [TemplateContent(fileName: "Molusca", content: header, extension: "h")])
+        AssertExplorable(content, [File(name: "Molusca", content: header, extension: "h")])
+    }
+    
+    func AssertExplorable(_ target: [Explorable],_ expected: [Explorable]) {
+        zip(target, expected).forEach { (lhs, rhs) in
+            if lhs as? File != nil && rhs as? File != nil {
+                XCTAssertEqual(lhs as? File, rhs as? File)
+            } else if lhs as? Folder != nil && rhs as? Folder != nil {
+                 XCTAssertEqual(lhs as? Folder, rhs as? Folder)
+            } else {
+                XCTAssert(false, "target \(lhs) is not same with expected \(rhs)")
+            }
+        }
     }
 }

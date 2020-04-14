@@ -47,8 +47,7 @@ internal func generate(destination: String, targetName: String, authorName: Stri
     output("Generating...", prefix: "⚙️ ")
     
     let content = template.contents(targetName: targetName, authorName: authorName)
-    let files = content.map { File(name: $0.fileName, content: $0.content, extension: $0.extension) }
-    let explorerOperation = SingleFolderOperation(folder: Folder(name: targetName, contents: files), path: destination)
+    let explorerOperation = SingleFolderOperation(folder: Folder(name: targetName, contents: content), path: destination)
     
     let operationResult = Explorer.default.write(operation: explorerOperation, writingStrategy: .overwrite)
     if case let .failure(error) = operationResult {
