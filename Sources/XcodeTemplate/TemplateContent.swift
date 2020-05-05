@@ -66,6 +66,7 @@ public enum SingleAppIOS12TemplateContent: CaseIterable, TemplateContentRawValue
     case appDelegate
     case launchScreen
     case dummyViewController
+    case assets
     
     public var content: Explorable {
         switch self {
@@ -77,6 +78,8 @@ public enum SingleAppIOS12TemplateContent: CaseIterable, TemplateContentRawValue
             return SingleAppTemplateContent.launchScreen.content
         case .dummyViewController:
             return SingleAppTemplateContent.dummyViewController.content
+        case .assets:
+            return SingleAppTemplateContent.assets.content
         }
     }
 }
