@@ -50,7 +50,7 @@ public enum SingleAppTemplateContent: CaseIterable, TemplateContentRawValue {
         case .sceneDelegate:
             return File(name: "SceneDelegate", content: SwiftFile.singleAppSceneDelegate.rawValue, extension: "swift")
         case .launchScreen:
-            return File(name: "LaunchScreen", content: launchStoryBoard, extension: "swift")
+            return File(name: "LaunchScreen", content: launchStoryBoard, extension: "storyboard")
         case .dummyViewController:
             return File(name: "ViewController", content: SwiftFile.dummyViewController.rawValue, extension: "swift")
         case .assets:
@@ -74,9 +74,9 @@ public enum SingleAppIOS12TemplateContent: CaseIterable, TemplateContentRawValue
         case .appDelegate:
             return File(name: "AppDelegate", content: SwiftFile.singleIOS12AppDelegate.rawValue, extension: "swift")
         case .launchScreen:
-            return File(name: "LaunchScreen", content: launchStoryBoard, extension: "swift")
+            return SingleAppTemplateContent.launchScreen.content
         case .dummyViewController:
-            return File(name: "ViewController", content: SwiftFile.dummyViewController.rawValue, extension: "swift")
+            return SingleAppTemplateContent.dummyViewController.content
         }
     }
 }
