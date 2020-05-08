@@ -191,7 +191,7 @@ internal enum SwiftFile: String {
             return """
             //
             //  \(WildCard.targetName.rawValue)Tests.swift
-            //  \(WildCard.targetName.rawValue)Tests
+            //  \(WildCard.targetName.rawValue)
             //
             //  Created by \(WildCard.authorName.rawValue) on \(WildCard.today.rawValue).
             //  Copyright © \(WildCard.year.rawValue) \(WildCard.authorName.rawValue). All rights reserved.
@@ -227,7 +227,7 @@ internal enum SwiftFile: String {
             return """
             //
             //  \(WildCard.targetName.rawValue)UITests.swift
-            //  \(WildCard.targetName.rawValue)UITests
+            //  \(WildCard.targetName.rawValue)
             //
             //  Created by \(WildCard.authorName.rawValue) on \(WildCard.today.rawValue).
             //  Copyright © \(WildCard.year.rawValue) \(WildCard.authorName.rawValue). All rights reserved.
